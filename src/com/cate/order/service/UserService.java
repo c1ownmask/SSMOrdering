@@ -34,7 +34,7 @@ public class UserService {
 		return dao.registeruser(user);
 	}
 
-	public User selectuserbyid(String id) {
+	public List<User> selectuserbyid(String id) {
 		return dao.selectuserbyid(id);
 	}
 

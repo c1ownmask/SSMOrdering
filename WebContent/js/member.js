@@ -30,4 +30,8 @@ $("document").ready(function(){
 	$("#resivereturn").click(function(){
 		$("#win1").dialog('close');
 	});
+	
+	$("#querybutton").click(function(){
+		location.href="selectuserbyidservlet?id="+$("#query").val();
+	});
 })

@@ -1,6 +1,9 @@
 package com.cate.order.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,10 +38,12 @@ public class SelectUserByIdServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id=request.getParameter("id");
+		System.out.println(id);
 		UserService service=new UserService();
-		User user=service.selectuserbyid(id);
-		if(null!=user){
-			request.setAttribute("user", user);
+		List<User> list=new ArrayList<User>();
+		list=service.selectuserbyid(id);
+		if(null!=list){
+			request.setAttribute("list", list);
 			request.getRequestDispatcher("member.jsp").forward(request, response);
 		}
 	}

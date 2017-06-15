@@ -43,8 +43,8 @@
 			<div class="content-sub">
 
 				<label class="c-label">关键字：</label> <input type="text"
-					class="c-text" value="" placeholder="请输入关键字" /> <input
-					type="button" class="c-but" value="查询" />
+					class="c-text" value="" id="query" name="query" placeholder="请输入关键字" /> <input
+					type="button" class="c-but" id="querybutton" name="querybutton" value="查询" />
 
 			</div>
 			<div class="content-tab">

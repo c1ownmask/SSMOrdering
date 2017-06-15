@@ -117,21 +117,23 @@ public class UserDao {
 		return false;
 	}
 
-	public User selectuserbyid(String id) {
+	public List<User> selectuserbyid(String id) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		User user = null;
+		List<User> list=new ArrayList<User>();
 		try {
-			ps = conn.prepareStatement("select * from t_user where id=?;");
-			ps.setString(1, id);
+			ps = conn.prepareStatement("select * from t_user where id like ?;");
+			ps.setString(1, "%"+id+"%");
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				user = new User(rs.getString("id"), rs.getString("username"), rs.getString("password"),
-						rs.getString("sex"), rs.getString("realname"), rs.getString("tel"), rs.getString("address"));
+						rs.getString("sex"), rs.getString("realname"), rs.getString("tel"), rs.getString("address"),rs.getString("create_time"),rs.getString("update_time"),rs.getString("login_time"));
+				list.add(user);
 			}
-			if (null != user) {
-				return user;
+			if (null != list) {
+				return list;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
