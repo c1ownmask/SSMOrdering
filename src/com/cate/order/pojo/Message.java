@@ -52,7 +52,7 @@ public class Message {
 	public Message() {
 	}
 
-	public Message(String id, String content, Date time, String foodid, String userid) {
+	public Message(String id,String userid,String foodid,String content,Date time) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -60,6 +60,8 @@ public class Message {
 		this.foodid = foodid;
 		this.userid = userid;
 	}
+
+
 
 	@Override
 	public int hashCode() {

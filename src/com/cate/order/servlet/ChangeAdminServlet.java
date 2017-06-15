@@ -13,18 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.cate.order.pojo.Admin;
 import com.cate.order.service.AdminService;
 
+
 /**
- * Servlet implementation class SelectAllAdminServlet
+ * Servlet implementation class ChangeAdminServlet
+ * 修改管理员信息
  */
-//管理员集合类 SelectAllAdminServlet
-@WebServlet("/selectalladminservlet")
-public class SelectAllAdminServlet extends HttpServlet {
+@WebServlet("/changeadminaction")
+public class ChangeAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAllAdminServlet() {
+    public ChangeAdminServlet() {
     }
 
 	/**
@@ -38,11 +39,22 @@ public class SelectAllAdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AdminService service = new AdminService();
-		List<Admin>list = new ArrayList<Admin>();
-		list=service.selectalladmin();
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("index-admin.jsp").forward(request, response);
+		System.out.println("修改管理员信息");
+		String id = request.getParameter("id");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String repassword = request.getParameter("repassword");
+		if(!password.equals(repassword)){
+			request.setAttribute("message", "两次密码不一样");
+			request.getRequestDispatcher("index-admin.jsp").forward(request, response);
+		}else{
+			Admin admin = new Admin(id,username,repassword);
+			AdminService service = new AdminService();
+			boolean b =service.adminchange(admin);
+			if(b){
+				request.getRequestDispatcher("selectalladminservlet").forward(request, response);
+			}
+		}
 	}
 
 }

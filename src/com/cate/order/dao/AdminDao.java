@@ -28,7 +28,7 @@ public class AdminDao {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				admin = new Admin(rs.getString("id"), rs.getString("adminname"), rs.getString("password"),
-						rs.getDate("create_Time"));
+						rs.getString("create_Time"));
 			}
 			if (rs.next()) {
 				return admin;
@@ -56,14 +56,14 @@ public class AdminDao {
 	public boolean adminregister(Admin admin) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
+		int i =0;
 		try {
 			ps = conn.prepareStatement("insert into t_admin values(?,?,?,?);");
 			ps.setString(1, admin.getId());
 			ps.setString(2, admin.getAdminname());
-			ps.setString(3, admin.getPassword());
-			Date date=(Date) admin.getCreate_Time();
-			ps.setDate(4, date);
-			int i = ps.executeUpdate();
+			ps.setString(3, admin.getCreate_Time());
+			ps.setString(4, admin.getPassword());
+			i = ps.executeUpdate();
 			if (i == 0) {
 				return false;
 			} else {
@@ -121,11 +121,10 @@ public class AdminDao {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
 		try {
-			ps = conn.prepareStatement("update t_admin set adminname=?,password=?,create_time=? where id=?");
+			ps = conn.prepareStatement("update t_admin set adminname=?,password=? where id=?"); 
 			ps.setString(1, admin.getAdminname());
 			ps.setString(2, admin.getPassword());
-			ps.setDate(3, (Date) admin.getCreate_Time());
-			ps.setString(4, admin.getId());
+			ps.setString(3, admin.getId());
 			int i = ps.executeUpdate();
 			if (i == 0) {
 				return false;
@@ -157,7 +156,7 @@ public class AdminDao {
 			ps=conn.prepareStatement("select * from t_admin");
 			rs = ps.executeQuery();
 			while(rs.next()){
-				admin = new Admin(rs.getString("id"),rs.getString("adminname"),rs.getString("password"),rs.getDate("create_Time"));
+				admin = new Admin(rs.getString("id"),rs.getString("adminname"),rs.getString("password"),rs.getString("create_Time"));
 				list.add(admin);
 			}
 		} catch (SQLException e) {

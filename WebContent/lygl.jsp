@@ -23,10 +23,10 @@
 	<div class="content">
 		<div class="content-headtab">
 			<p>
-				菜品种类列表 <span> <a href="#" class="c-tianjia"
-					onclick="javascript:$('#tj-admin').dialog('open')">[添加菜品种类]</a>
+				留言列表 <span> <a href="#" class="c-tianjia"
+					onclick="javascript:$('#tj-admin').dialog('open')">[添加留言]</a>
 					<div id="tj-admin" class="easyui-dialog" modal="true"
-						closable="false" closed="true" title="添加菜品种类信息"
+						closable="false" closed="true" title="修改留言信息"
 						style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
 						<form id="tj-form" action="" method="">
 							<div class="w-index">
@@ -72,20 +72,24 @@
 			<div class="content-tab">
 				<table>
 					<tr>
-						<th width=22%>编号</th>
-						<th width=22%>菜品种类</th>
-						<th width=22%>菜品种类信息</th>
+						<th width=20%>留言编号</th>
+						<th width=12%>留言顾客</th>
+						<th width=12%>留言菜品</th>
+						<th width=12%>留言内容</th>
+						<th width=12%>留言时间</th>
 						<th width=12%>操作</th>
 					</tr>
-					<c:forEach items="${list }" var="catelog">
+					<c:forEach items="${list }" var="message">
 						<tr>
-							<td>${catelog.id}</td>
-							<td>${catelog.catelogname}</td>
-							<td>${catelog.cateloginfo}</td>
+							<td>${message.id}</td>
+							<td>${message.userid}</td>
+							<td>${message.foodid}</td>
+							<td>${message.content}</td>
+							<td>${message.time}</td>
 							<td><span> <a class="c-taba" href="#"
 									onclick="javascript:$('#xg-admin').dialog('open')">修改</a> <!--closed="true"-->
 									<div id="xg-admin" class="easyui-dialog" modal="true"
-										closable="false" closed="true" title="修改菜品类别信息"
+										closable="false" closed="true" title="修改留言信息"
 										style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
 										<form id="xg-form" action="" method="">
 											<div class="w-index">

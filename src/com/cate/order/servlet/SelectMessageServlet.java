@@ -3,28 +3,26 @@ package com.cate.order.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cate.order.pojo.Admin;
-import com.cate.order.service.AdminService;
+import com.cate.order.pojo.Message;
+import com.cate.order.service.MessageService;
 
 /**
- * Servlet implementation class SelectAllAdminServlet
+ * Servlet implementation class SelectMessageServlet
  */
-//管理员集合类 SelectAllAdminServlet
-@WebServlet("/selectalladminservlet")
-public class SelectAllAdminServlet extends HttpServlet {
+@WebServlet("/selectmessageservlet")
+public class SelectMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAllAdminServlet() {
+    public SelectMessageServlet() {
     }
 
 	/**
@@ -38,11 +36,11 @@ public class SelectAllAdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AdminService service = new AdminService();
-		List<Admin>list = new ArrayList<Admin>();
-		list=service.selectalladmin();
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("index-admin.jsp").forward(request, response);
+	MessageService service = new MessageService();
+	List<Message> list = new ArrayList<Message>();
+	list=service.selectmessage();
+	request.setAttribute("list", list);
+	request.getRequestDispatcher("lygl.jsp").forward(request, response);
 	}
 
 }

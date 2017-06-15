@@ -34,10 +34,18 @@ public class AdminService {
 			return false;
 		}
 	}
-
+/*
+ * 查找所有管理员
+ */
 	public List<Admin> selectalladmin() {
 		List<Admin>list = new ArrayList<Admin>();
 		list =dao.selectalladmin();
 		return list;
+	}
+/*
+ * 修改管理员信息
+ */
+	public boolean adminchange(Admin admin) {
+		return dao.adminupdate(admin);
 	}
 }

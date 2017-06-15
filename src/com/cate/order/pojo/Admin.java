@@ -13,7 +13,7 @@ public class Admin {
 	private String id;
 	private String adminname;
 	private String password;
-	private Date create_Time;
+	private String create_Time;
 	public String getId() {
 		return id;
 	}
@@ -32,10 +32,10 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getCreate_Time() {
+	public String getCreate_Time() {
 		return create_Time;
 	}
-	public void setCreate_Time(Date create_Time) {
+	public void setCreate_Time(String create_Time) {
 		this.create_Time = create_Time;
 	}
 	@Override
@@ -82,8 +82,13 @@ public class Admin {
 	public Admin() {
 		
 	}
-	public Admin(String id, String adminname, String password, Date create_Time) {
+	public Admin(String id, String adminname, String password) {
 		super();
+		this.id = id;
+		this.adminname = adminname;
+		this.password = password;
+	}
+	public Admin(String id, String adminname, String password, String create_Time) {
 		this.id = id;
 		this.adminname = adminname;
 		this.password = password;
