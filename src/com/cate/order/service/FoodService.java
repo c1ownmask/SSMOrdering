@@ -19,4 +19,16 @@ public class FoodService {
 		return dao.selectallfood();
 	}
 
+	public int selectfoodnum() {
+		return dao.selectfoodnum();
+	}
+
+	public String selectId() {
+		return dao.selectId();
+	}
+
+	public boolean addfoodservice(Food food) {
+		return dao.addfoodservice(food);
+	}
+
 }

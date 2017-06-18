@@ -68,6 +68,13 @@ public Food(String id, String foodinfo, String foodname, String photo, double pr
 	this.catelogid = catelogid;
 	this.num = num;
 }
+public Food(String id, String foodinfo, String foodname, double price, String catelogid) {
+	this.id = id;
+	this.foodinfo = foodinfo;
+	this.foodname = foodname;
+	this.price = price;
+	this.catelogid = catelogid;
+}
 @Override
 public int hashCode() {
 	final int prime = 31;

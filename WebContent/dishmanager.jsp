@@ -18,7 +18,7 @@
 <script type="text/javascript"
 	src="easyui_1.4.4/locale/easyui-lang-zh_CN.js"></script>
 <script src="js/js.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="js/foodajax.js" ></script>
+<script type="text/javascript" src="js/foodajax.js"></script>
 </head>
 <body>
 	<div class="content">
@@ -29,21 +29,33 @@
 					<div id="tj-admin" class="easyui-dialog" modal="true"
 						closable="false" closed="true" title="添加菜品信息"
 						style="width: 400px; background: #fff; overflow: hidden;">
-						<form id="tj-adminform" action="addadminaction" method="post">
+						<form id="tj-addfoodform" action="addfoodaction" method="post">
 							<div class="w-index">
 								<label class="w-label-1">菜品名：</label> <input class="w-itext"
-									type="text" id="adminName" name="username" style="width: 200px" value=""
-									placeholder="请输入菜品名" />
+									type="text" id="food_name" name="food_name"
+									style="width: 200px" value="" placeholder="请输入菜品名" />
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">菜品种类：</label> <select id="food_id" name="food_id" style="width: 200px"></select>
+								<label class="w-label-1">菜品种类：</label> <select id="food_id"
+									name="food_id" style="width: 200px"></select>
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">图片：</label> <input type="file" id="photo" name="photo" style="width: 200px">
+								<label class="w-label-1">图片：</label> <input type="file"
+									id="photo" name="photo" style="width: 200px">
+							</div>
+							<div class="w-index">
+								<label class="w-label-1">菜品信息：</label> <input type="text"
+									id="food_message" name="food_message" style="width: 200px"
+									placeholder="请输入菜品信息">
+							</div>
+							<div class="w-index">
+								<label class="w-label-1">单价：</label> <input type="text"
+									id="food_price" name="food_price" style="width: 200px"
+									placeholder="请输入单价">
 							</div>
 							<div class="w-index"
 								style="text-align: center; margin-top: 30px;">
-								<input id="addadminsub" class="w-but1" type="button" value="提交" />
+								<input id="addfoodsub" class="w-but1" type="button" value="提交" />
 								<input class="w-but1" type="button" onclick="d_close_tj()"
 									value="返回" />
 							</div>
@@ -134,43 +146,48 @@
 	</div>
 </body>
 <script type="text/javascript">
-		function remove() {
-			if(confirm("是否删除改数据？")) {
-				alert("改数据已被删除");
-			} else {
-				alert("该操作已取消！");
-			}
+	function remove() {
+		if (confirm("是否删除改数据？")) {
+			alert("改数据已被删除");
+		} else {
+			alert("该操作已取消！");
 		}
-		function d_close_tj() {
-			$("#tj-admin").dialog('close');
-			$("#tj-adminform").form('clear');
-		}
+	}
+	function d_close_tj() {
+		$("#tj-admin").dialog('close');
+		$("#tj-addfoodform").form('clear');
+	}
 
-		function d_close() {
-			//关闭窗口
-			$("#xg-admin").dialog('close');
-			//清除表单缓存
-			$("#xg-adminform").form('clear');
-		}
-		$("#addadminsub").click(function() {
-			if($("#adminId").val().length == 0 || $("#adminName").val().length == 0 || $("#adminPassword").val().length == 0 || $("#adminRepassword").val().length == 0) {
-				alert("输入框不能为空！  ");
-			} else {
-				$("#tj-adminform").submit();
-			}
-		});  
-		
-		function tanchuang(id){
-			$("#xg-id").val(id);
-			$('#xg-admin').dialog('open');
-		}
-		$("#xg-but").click(function(){
-			if($("#xg-name").val().length ==0 || $("#xg-password").val().length ==0 || $("#xg-repassword").val().length ==0){
-				alert("信息不能为空")
-			}else{
-				$("#xg-adminform").submit();
-			}
-		});
-		
-	</script>
+	function d_close() {
+		//关闭窗口
+		$("#xg-admin").dialog('close');
+		//清除表单缓存
+		$("#xg-adminform").form('clear');
+	}
+	$("#addfoodsub").click(
+			function() {
+				if ($("#food_name").val().length == 0
+						|| $("#food_message").val().length == 0
+						|| $("#food_price").val().length == 0) {
+					alert("输入框不能为空！  ");
+				} else {
+					$("#tj-addfoodform").submit();
+				}
+			});
+
+	function tanchuang(id) {
+		$("#xg-id").val(id);
+		$('#xg-admin').dialog('open');
+	}
+	$("#xg-but").click(
+			function() {
+				if ($("#xg-name").val().length == 0
+						|| $("#xg-password").val().length == 0
+						|| $("#xg-repassword").val().length == 0) {
+					alert("信息不能为空")
+				} else {
+					$("#xg-adminform").submit();
+				}
+			});
+</script>
 </html>

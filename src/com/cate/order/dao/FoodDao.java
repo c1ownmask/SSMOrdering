@@ -31,13 +31,78 @@ public class FoodDao {
 						rs.getString("photo"), rs.getDouble("price"), rs.getString("catelog_name"), rs.getInt("num"));
 				list.add(food);
 			}
-			if(list.size()>0){
+			if (list.size() > 0) {
 				return list;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public int selectfoodnum() {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement("select count(*) count from t_food;");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int count = rs.getInt("count");
+				if (count >= 0) {
+					return count;
+				} else {
+					return 0;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public String selectId() {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement(
+					"select id FROM(SELECT (@rowno:=@rowno+1) as row,a.id FROM t_food a ,(SELECT @rowno:=0) t ORDER BY id DESC) a WHERE a.row=1;");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String hisId = rs.getString("id");
+				if (null != hisId) {
+					return hisId;
+				} else {
+					return null;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean addfoodservice(Food food) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("insert into t_food(id,foodinfo,foodname,price,catelog_id) values(?,?,?,?,?);");
+			ps.setString(1, food.getId());
+			ps.setString(2, food.getFoodinfo());
+			ps.setString(3, food.getFoodname());
+			ps.setDouble(4, food.getPrice());
+			ps.setString(5, food.getCatelogid());
+			int i=ps.executeUpdate();
+			if(i>0){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }
