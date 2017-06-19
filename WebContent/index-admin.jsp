@@ -157,12 +157,11 @@
 		
 		$("#addadminsub").click(
 				function() {
-					if($("#adminId").val().length == 0 ||
-						$("#adminName").val().length == 0 ||
-						$("#adminPassword").val().length == 0 ||
-						$("#adminRepassword").val().length == 0) {
-						alert("输入框不能为空！  ");
-					} else {
+					if($("#adminId").val().length == 0 || $("#adminName").val().length == 0 || $("#adminPassword").val().length == 0 || $("#adminRepassword").val().length == 0 ){
+						alert("信息不能为空！");
+					}else if($("#adminId").val() != $("#adminName").val()){
+						alert("两次密码不同，请重新输入！");
+					}else{
 						$("#tj-adminform").submit();
 					}
 		});
@@ -181,11 +180,11 @@
 		
 		$("#xg-but").click(
 			function() {
-				if($("#xg-name").val().length == 0 ||
-					$("#xg-password").val().length == 0 ||
-					$("#xg-repassword").val().length == 0) {
-					alert("信息不能为空")
-				} else {
+				if($("#xg-name").val().length == 0 || $("#xg-password").val().length == 0 || $("#xg-repassword").val().length == 0) {
+					alert("信息不能为空！");
+				} else if($("#xg-password").val() != $("#xg-repassword").val()){
+					alert("两次密码不同，请重新输入！");
+				}else{
 					$("#xg-adminform").submit();
 				}
 			});
