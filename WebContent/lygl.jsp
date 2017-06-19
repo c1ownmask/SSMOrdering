@@ -28,22 +28,22 @@
 					<div id="tj-admin" class="easyui-dialog" modal="true"
 						closable="false" closed="true" title="修改留言信息"
 						style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
-						<form id="tj-form" action="" method="">
+						<form id="addlygl" action="addmessageservlet" method="post">
 							<div class="w-index">
-								<label class="w-label-1">编号：</label> <input class="w-itext"
-									disabled="disabled"  type="text" value="" placeholder="请输入编号" />
+								<label class="w-label-1">留言顾客：</label> <input class="w-itext"
+									id="tjlygk" type="text" value="" placeholder="请输入留言顾客" />
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">菜品种类：</label> <input class="w-itext"
-									type="text" value="" placeholder="请输入菜品种类" />
+								<label class="w-label-1">留言菜品：</label> <input class="w-itext"
+									id="tjlycp" type="text" value="" placeholder="请输入留言菜品" />
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">菜品种类信息：</label> <input class="w-itext"
-									type="text" value="" placeholder="请输入菜品种类信息" />
+								<label class="w-label-1">留言内容：</label> <input class="w-itext"
+									id="tjlynr" type="text" value="" placeholder="请输入留言内容" />
 							</div>
 							<div class="w-index"
 								style="text-align: center; margin-top: 30px;">
-								<input class="w-but1" type="button" value="提交" /> <input
+								<input class="w-but1" type="button" value="提交" id="subbutlygl" /> <input
 									class="w-but1" type="button" onclick="d_close_tj()" value="返回" />
 							</div>
 						</form>
@@ -65,14 +65,15 @@
 			<div class="content-sub">
 				<form>
 					<label class="c-label">关键字：</label> <input type="text"
-						class="c-text" value="" placeholder="请输入关键字" /> <input
-						type="button" class="c-but" value="查询" />
+						class="c-text" value="" placeholder="请输入关键字" id="query"
+						name="query" /> <input type="button" class="c-but" value="查询"
+						id="querybutton" name="querybutton" />
 				</form>
 			</div>
 			<div class="content-tab">
 				<table>
 					<tr>
-						<th width=20%>留言编号</th>
+						<th width=12%>留言编号</th>
 						<th width=12%>留言顾客</th>
 						<th width=12%>留言菜品</th>
 						<th width=12%>留言内容</th>
@@ -91,27 +92,29 @@
 									<div id="xg-admin" class="easyui-dialog" modal="true"
 										closable="false" closed="true" title="修改留言信息"
 										style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
-										<form id="xg-form" action="" method="">
+										<form id="" action="" method="">
 											<div class="w-index">
 												<label class="w-label-1">编号：</label> <input class="w-itext"
 													disabled="disabled" type="text" value=""
 													placeholder="请输入编号" />
 											</div>
 											<div class="w-index">
-												<label class="w-label-1">菜品种类：</label> <input class="w-itext"
-													type="text" value="" placeholder="请输入菜品种类" />
+												<label class="w-label-1">菜品种类：</label> <input
+													class="w-itext" type="text" value="" placeholder="请输入菜品种类" />
 											</div>
 											<div class="w-index">
-												<label class="w-label-1">菜品种类信息：</label> <input class="w-itext"
-													type="text" value="" placeholder="请输入菜品种类信息" />
+												<label class="w-label-1">菜品种类信息：</label> <input
+													class="w-itext" type="text" value=""
+													placeholder="请输入菜品种类信息" />
 											</div>
 											<div class="w-index"
 												style="text-align: center; margin-top: 30px;">
-												<input class="w-but1" type="button" value="提交" /> <input
-													class="w-but1" type="button" onclick="d_close()" value="返回" />
+												<input class="w-but1" type="button" value="提交"
+													/> <input class="w-but1" type="button"
+													onclick="d_close()" value="返回" />
 											</div>
 										</form>
-									</div> / <a class="c-taba" onclick="remove()" href="#">删除</a>
+									</div> / <a class="c-taba" onclick="remove()" href="deletemessageaction?id=${message.id}">删除</a>
 							</span></td>
 						</tr>
 					</c:forEach>
@@ -124,6 +127,7 @@
 	</div>
 </body>
 <script type="text/javascript">
+
 	function remove() {
 		if (confirm("是否删除该数据？")) {
 			alert("该数据已被删除");
@@ -141,5 +145,22 @@
 		//清除表单缓存
 		$("#xg-form").form('clear');
 	}
+	
+	//添加菜品种类事件
+	$("#subbutlygl").click(
+			function() {
+				if ($("#tjlygk").val().length == 0
+						|| $("#tjlycp").val().length == 0
+							||$("#tjlynr").val().length == 0){
+					alert("输入框不能为空");
+				} else {
+					$("#addlygl").submit();
+				}
+			});
+	
+	//查询留言管理事件
+	$("#querybutton").click(function(){
+		location.href="selectmessagebyidservlet?id="+$("#query").val();
+	});
 </script>
 </html>

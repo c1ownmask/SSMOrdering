@@ -5,7 +5,7 @@ import java.util.Date;
 public class Message {
 	private String id;
 	private String content;
-	private Date time;
+	private String time;
 	private String foodid;
 	private String userid;
 
@@ -25,11 +25,11 @@ public class Message {
 		this.content = content;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
@@ -52,7 +52,15 @@ public class Message {
 	public Message() {
 	}
 
-	public Message(String id,String userid,String foodid,String content,Date time) {
+	public Message(String id,String userid,String foodid,String content) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.foodid = foodid;
+		this.userid = userid;
+	}
+	
+	public Message(String id,String userid,String foodid,String content,String time) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -60,6 +68,7 @@ public class Message {
 		this.foodid = foodid;
 		this.userid = userid;
 	}
+
 
 
 

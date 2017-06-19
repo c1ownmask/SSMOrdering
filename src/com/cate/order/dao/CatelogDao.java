@@ -54,7 +54,6 @@ public class CatelogDao {
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement("insert into t_catelog(id,catelog_name,catelog_info) values(?,?,?);");
-
 			ps.setString(1, catelog.getId());
 			ps.setString(2, catelog.getCatelogname());
 			ps.setString(3, catelog.getCateloginfo());
@@ -157,5 +156,32 @@ public class CatelogDao {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	
+	/**
+	 * @Ps:Catelog模糊查询dao
+	 */
+	public List<Catelog> selectcatelogbyid(String id) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Catelog catelog;
+		List<Catelog> list=new ArrayList<Catelog>();
+		try {
+			ps = conn.prepareStatement("select * from t_catelog where id like ?");
+			ps.setString(1, "%"+id+"%");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				catelog = new Catelog(rs.getString("id"),rs.getString("catelog_info"),rs.getString("catelog_name"));
+				list.add(catelog);
+			}
+			if(null!=list){
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

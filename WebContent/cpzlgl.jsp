@@ -64,8 +64,9 @@
 			<div class="content-sub">
 				<form>
 					<label class="c-label">关键字：</label> <input type="text"
-						class="c-text" value="" placeholder="请输入关键字" /> <input
-						type="button" class="c-but" value="查询" />
+						class="c-text" value="" placeholder="请输入关键字" id="query" name="query"/> <input
+						type="button" class="c-but" value="查询" id="querybutton"
+						name="querybutton" />
 				</form>
 			</div>
 			<div class="content-tab">
@@ -123,16 +124,26 @@
 	</div>
 </body>
 <script type="text/javascript">
+	function remove() {
+		if (confirm("是否删除该数据？")) {
+			alert("该数据已被删除");
+		} else {
+			alert("该操作已取消！");
+		}
+	}
+
 	function d_close_tj() {
 		$("#tj-cpzl").dialog('close');
 		$("#tj-form").form('clear');
 	}
+
 	function d_close() {
 		//关闭窗口
 		$("#xg-cpzl").dialog('close');
 		//清除表单缓存
 		$("#xg-form").form('clear');
 	}
+
 	//添加菜品种类事件
 	$("#subbutcpzl").click(
 			function() {
@@ -143,6 +154,7 @@
 					$("#addcpzl").submit();
 				}
 			});
+
 	// 修改菜品种类事件
 	$("#submitxgcpzl").click(
 			function() {
@@ -152,9 +164,15 @@
 				} else {
 				}
 			});
+
 	function tanchuang(id) {
 		$("#xg-id").val(id);
 		$('#xg-cpzl').dialog('open');
 	}
+	
+	//查询菜品种类事件
+	$("#querybutton").click(function(){
+		location.href="selectcatelogbyidservlet?id="+$("#query").val();
+	});
 </script>
 </html>
