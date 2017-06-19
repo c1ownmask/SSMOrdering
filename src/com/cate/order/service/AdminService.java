@@ -48,7 +48,9 @@ public class AdminService {
 	public boolean adminchange(Admin admin) {
 		return dao.adminupdate(admin);
 	}
-
+	/*
+	 * 删除管理员信息
+	 */
 	public boolean removeadmin(Admin admin) {
 		return dao.admindelete(admin);
 	}
