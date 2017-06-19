@@ -19,10 +19,10 @@ public class EamilDao {
 		List<Eamil> list = new ArrayList<Eamil>();
 		Eamil eamil;
 		try {
-			ps = conn.prepareStatement("select * from t_eamil");
+			ps = conn.prepareStatement("select e.id,e.content,e.time,u.realName from t_eamil e,t_user u where e.user_id = u.id");
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				eamil = new Eamil(rs.getString("id"), rs.getString("content"), rs.getString("time"),rs.getString("user_id"));
+				eamil = new Eamil(rs.getString("id"), rs.getString("content"), rs.getString("time"),rs.getString("realName"));
 				list.add(eamil);
 			}
 		} catch (SQLException e) {

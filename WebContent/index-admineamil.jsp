@@ -42,8 +42,8 @@
 						<tr>
 							<th width=22%>编号</th>
 							<th width=32%>信件内容</th>
-							<th width=17%>发件人</th>
 							<th width=17%>发送时间</th>
+							<th width=17%>发件人</th>
 							<th width=12%>操作</th>
 						</tr>
 						<c:forEach items="${list}" var="eamil">
@@ -67,7 +67,7 @@
 								<input class="w-itext" type="text" id="remove-eamilid" name="id" placeholder="请输入编号" />
 							</div>
 							<div class="w-index">
-								<label class="w-label-1" style="width:100%;text-align:left;color:red;font-weight:bold;">是否删除该管理员？</label>
+								<label class="w-label-1" style="width:100%;text-align:left;color:red;font-weight:bold;">是否删除该信息？</label>
 							</div>
 							<div class="w-index" style="text-align: center; margin-top: 30px;">
 								<input class="w-but1" type="submit" value="确认" />
