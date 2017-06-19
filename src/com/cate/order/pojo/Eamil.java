@@ -1,7 +1,7 @@
 package com.cate.order.pojo;
 
 import java.util.Date;
-
+//管理员信箱
 public class Eamil {
 private String id;
 private String content;

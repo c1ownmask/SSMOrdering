@@ -82,6 +82,10 @@ public class Admin {
 	public Admin() {
 		
 	}
+	
+	public Admin(String id) {
+		this.id = id;
+	}
 	public Admin(String id, String adminname, String password) {
 		super();
 		this.id = id;

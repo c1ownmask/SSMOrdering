@@ -3,7 +3,7 @@ $("document").ready(function(){
 		$("#win").dialog('open');
 	});
 	
-	$("#returnbutton").click(function(){
+	$("#returnbutton").click(function(){ 
 		$("#win").dialog('close');
 	});
 	

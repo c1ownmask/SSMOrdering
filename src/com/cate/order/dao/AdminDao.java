@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.cate.order.pojo.Admin;
 import com.cate.order.util.ConnectionFactory;
+import com.sun.media.sound.SoftSynthesizer;
 
 public class AdminDao {
 	/**
@@ -90,10 +91,11 @@ public class AdminDao {
 	public boolean admindelete(Admin admin) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
+		int i=0;
 		try {
 			ps = conn.prepareStatement("delete from t_admin where id=?");
 			ps.setString(1, admin.getId());
-			int i = ps.executeUpdate();
+			i = ps.executeUpdate();
 			if (i == 0) {
 				return false;
 			} else {

@@ -24,27 +24,26 @@
 		<div class="content-headtab">
 			<p>
 				菜品种类列表 <span> <a href="#" class="c-tianjia"
-					onclick="javascript:$('#tj-admin').dialog('open')">[添加菜品种类]</a>
-					<div id="tj-admin" class="easyui-dialog" modal="true"
+					onclick="javascript:$('#tj-cpzl').dialog('open')">[添加菜品种类]</a>
+					<div id="tj-cpzl" class="easyui-dialog" modal="true"
 						closable="false" closed="true" title="添加菜品种类信息"
 						style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
-						<form id="tj-form" action="" method="">
-							<div class="w-index">
-								<label class="w-label-1">编号：</label> <input class="w-itext"
-									disabled="disabled"  type="text" value="" placeholder="请输入编号" />
-							</div>
+						<form id="addcpzl" action="addcatelogservlet" method="post">
 							<div class="w-index">
 								<label class="w-label-1">菜品种类：</label> <input class="w-itext"
-									type="text" value="" placeholder="请输入菜品种类" />
+									id="tjcpzlinfo" type="text" name="cateloginfo" value=""
+									placeholder="请输入菜品种类信息" />
 							</div>
 							<div class="w-index">
 								<label class="w-label-1">菜品种类信息：</label> <input class="w-itext"
-									type="text" value="" placeholder="请输入菜品种类信息" />
+									id="tjcpzlname" type="text" name="catelogname" value=""
+									placeholder="请输入菜品种类" />
 							</div>
 							<div class="w-index"
 								style="text-align: center; margin-top: 30px;">
-								<input class="w-but1" type="button" value="提交" /> <input
-									class="w-but1" type="button" onclick="d_close_tj()" value="返回" />
+								<input class="w-but1" type="button" value="提交" id="subbutcpzl" />
+								<input class="w-but1" type="button" onclick="d_close_tj()"
+									value="返回" />
 							</div>
 						</form>
 					</div>
@@ -83,31 +82,35 @@
 							<td>${catelog.catelogname}</td>
 							<td>${catelog.cateloginfo}</td>
 							<td><span> <a class="c-taba" href="#"
-									onclick="javascript:$('#xg-admin').dialog('open')">修改</a> <!--closed="true"-->
-									<div id="xg-admin" class="easyui-dialog" modal="true"
+									onclick="tanchuang('${catelog.id}')">修改</a>
+									<div id="xg-cpzl" class="easyui-dialog" modal="true"
 										closable="false" closed="true" title="修改菜品类别信息"
 										style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
-										<form id="xg-form" action="" method="">
-											<div class="w-index">
+										<form id="updatecpzl" action="upadatecatelogaction"
+											method="post">
+											<div class="w-index" style="display: none">
 												<label class="w-label-1">编号：</label> <input class="w-itext"
-													disabled="disabled" type="text" value=""
-													placeholder="请输入编号" />
+													type="text" id="xg-id" name="id" placeholder="请输入编号" />
 											</div>
 											<div class="w-index">
-												<label class="w-label-1">菜品种类：</label> <input class="w-itext"
-													type="text" value="" placeholder="请输入菜品种类" />
+												<label class="w-label-1">菜品种类：</label> <input
+													class="w-itext" type="text" name="catelogname" value=""
+													id="xgcpzlinfo" placeholder="请输入菜品种类" />
 											</div>
 											<div class="w-index">
-												<label class="w-label-1">菜品种类信息：</label> <input class="w-itext"
-													type="text" value="" placeholder="请输入菜品种类信息" />
+												<label class="w-label-1">菜品种类信息：</label> <input
+													class="w-itext" type="text" name="cateloginfo" value=""
+													id="xgcpzlname" placeholder="请输入菜品种类信息" />
 											</div>
 											<div class="w-index"
 												style="text-align: center; margin-top: 30px;">
-												<input class="w-but1" type="button" value="提交" /> <input
-													class="w-but1" type="button" onclick="d_close()" value="返回" />
+												<input class="w-but1" type="submit" value="提交"
+													id="submitxgcpzl" /> <input class="w-but1" type="button"
+													onclick="d_close()" value="返回" />
 											</div>
 										</form>
-									</div> / <a class="c-taba" onclick="remove()" href="#">删除</a>
+									</div> / <a class="c-taba" onclick="remove()"
+									href="deletecatelogaction?id=${catelog.id}">删除</a>
 							</span></td>
 						</tr>
 					</c:forEach>
@@ -120,22 +123,38 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function remove() {
-		if (confirm("是否删除该数据？")) {
-			alert("该数据已被删除");
-		} else {
-			alert("该操作已取消！");
-		}
-	}
 	function d_close_tj() {
-		$("#tj-admin").dialog('close');
+		$("#tj-cpzl").dialog('close');
 		$("#tj-form").form('clear');
 	}
 	function d_close() {
 		//关闭窗口
-		$("#xg-admin").dialog('close');
+		$("#xg-cpzl").dialog('close');
 		//清除表单缓存
 		$("#xg-form").form('clear');
+	}
+	//添加菜品种类事件
+	$("#subbutcpzl").click(
+			function() {
+				if ($("#tjcpzlinfo").val().length == 0
+						|| $("#tjcpzlname").val().length == 0) {
+					alert("输入框不能为空");
+				} else {
+					$("#addcpzl").submit();
+				}
+			});
+	// 修改菜品种类事件
+	$("#submitxgcpzl").click(
+			function() {
+				if ($("#xgcpzlinfo").val().length == 0
+						|| $("#xgcpzlname").val().length == 0) {
+					alert("输入框不能为空");
+				} else {
+				}
+			});
+	function tanchuang(id) {
+		$("#xg-id").val(id);
+		$('#xg-cpzl').dialog('open');
 	}
 </script>
 </html>
