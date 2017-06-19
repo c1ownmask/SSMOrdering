@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.cate.order.pojo.Food;
 import com.cate.order.util.ConnectionFactory;
+import com.sun.org.apache.regexp.internal.recompile;
 
 /**
  * @Date:2017年6月16日 上午9:49:54
@@ -93,16 +94,84 @@ public class FoodDao {
 			ps.setString(3, food.getFoodname());
 			ps.setDouble(4, food.getPrice());
 			ps.setString(5, food.getCatelogid());
-			int i=ps.executeUpdate();
-			if(i>0){
+			int i = ps.executeUpdate();
+			if (i > 0) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public boolean updatefood(Food food) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(
+					"UPDATE `ordermanager`.`t_food` SET `foodinfo`=?, `foodname`=?, `photo`=?, `price`=?, `catelog_id`=? WHERE (`id`=?);");
+			ps.setString(1, food.getFoodinfo());
+			ps.setString(2, food.getFoodname());
+			ps.setString(3, food.getPhoto());
+			ps.setDouble(4, food.getPrice());
+			ps.setString(5, food.getCatelogid());
+			ps.setString(6, food.getId());
+			int i = ps.executeUpdate();
+			if (i > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean deletefood(String id) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("delete from t_food where id=?");
+			ps.setString(1, id);
+			int i = ps.executeUpdate();
+			if (i > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public List<Food> selectfoodbyid(String id) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		List<Food> list = new ArrayList<Food>();
+		Food food = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement("select * from t_food where id like ? ;");
+			ps.setString(1, '%' + id + '%');
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				food = new Food(rs.getString("id"), rs.getString("foodinfo"), rs.getString("foodname"),
+						rs.getString("photo"), rs.getDouble("price"), rs.getString("catelog_id"), rs.getInt("num"));
+				list.add(food);
+			}
+			if(list.size()>0){
+				return list;
+			}else{
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

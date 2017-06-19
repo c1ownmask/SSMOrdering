@@ -31,4 +31,16 @@ public class FoodService {
 		return dao.addfoodservice(food);
 	}
 
+	public boolean updatefood(Food food) {
+		return dao.updatefood(food);
+	}
+
+	public boolean deletefood(String id) {
+		return dao.deletefood(id);
+	}
+
+	public List<Food> selectfoodbyid(String id) {
+		return dao.selectfoodbyid(id);
+	}
+
 }

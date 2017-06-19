@@ -75,6 +75,15 @@ public Food(String id, String foodinfo, String foodname, double price, String ca
 	this.price = price;
 	this.catelogid = catelogid;
 }
+
+public Food(String id, String foodinfo, String foodname, double price, String catelogid,String photo) {
+	this.id = id;
+	this.foodinfo = foodinfo;
+	this.foodname = foodname;
+	this.price = price;
+	this.catelogid = catelogid;
+	this.photo=photo;
+}
 @Override
 public int hashCode() {
 	final int prime = 31;

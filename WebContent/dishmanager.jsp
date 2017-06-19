@@ -78,8 +78,8 @@
 			<div class="content-sub">
 				<form>
 					<label class="c-label">关键字：</label> <input type="text"
-						class="c-text" value="" placeholder="请输入关键字" /> <input
-						type="button" class="c-but" value="查询" />
+						class="c-text" value="" id="queryid" name="queryid" placeholder="请输入关键字" /> <input
+						type="button" class="c-but" id="c-but" value="查询" />
 				</form>
 			</div>
 			<div class="content-tab">
@@ -102,8 +102,8 @@
 							<td>${food.foodinfo}</td>
 							<td>${food.price}</td>
 							<td><span> <a class="c-taba" href="#"
-									onclick="tanchuang('${admin.id}')">修改</a> / <a class="c-taba"
-									onclick="remove()" href="#">删除</a>
+									onclick="tanchuang('${food.id}')">修改</a> / <a class="c-taba"
+									onclick="remove('${food.id}')" href="#">删除</a>
 							</span></td>
 						</tr>
 					</c:forEach>
@@ -112,24 +112,33 @@
 				<div id="xg-admin" class="easyui-dialog" modal="true"
 					closable="false" closed="true" title="修改管理员信息"
 					style="width: 400px; background: #fff; overflow: hidden;">
-					<form id="xg-adminform" action="changeadminaction" method="post">
+					<form id="xg-adminform" action="changefoodaction" method="post">
 						<div class="w-index" style="display: none">
 							<label class="w-label-1">编号：</label> <input class="w-itext"
 								type="text" id="xg-id" name="id" placeholder="请输入编号" />
 						</div>
 						<div class="w-index">
-							<label class="w-label-1">姓名：</label> <input class="w-itext"
-								type="text" id="xg-name" name="username" placeholder="请输入姓名" />
+							<label class="w-label-1">菜品名：</label> <input class="w-itext"
+								type="text" id="foodname1" name="foodname1" placeholder="请输入菜品名"
+								width="200px" />
 						</div>
 						<div class="w-index">
-							<label class="w-label-1">密码：</label> <input class="w-itext"
-								type="password" id="xg-password" name="password"
-								placeholder="请输入密码" />
+							<label class="w-label-1">菜品种类：</label><select id="catelog_id" name="catelog_id"
+								style="width: 200px"></select>
 						</div>
 						<div class="w-index">
-							<label class="w-label-1">确认密码：</label> <input class="w-itext"
-								type="password" id="xg-repassword" name="repassword"
-								placeholder="请再次输入密码" />
+							<label class="w-label-1">图片：</label><input type="file"
+								id="picture" name="picture" width="200px">
+						</div>
+						<div class="w-index">
+							<label class="w-label-1">菜品信息：</label> <input type="text"
+								id="food_message1" name="food_message1" style="width: 200px"
+								placeholder="请输入菜品信息">
+						</div>
+						<div class="w-index">
+							<label class="w-label-1">单价：</label> <input type="text"
+								id="food_price1" name="food_price1" style="width: 200px"
+								placeholder="请输入单价">
 						</div>
 						<div class="w-index" style="text-align: center; margin-top: 30px;">
 							<input id="xg-but" class="w-but1" type="button" value="提交" /> <input
@@ -146,13 +155,13 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function remove() {
-		if (confirm("是否删除改数据？")) {
-			alert("改数据已被删除");
-		} else {
-			alert("该操作已取消！");
-		}
+function remove(id) {
+	if (confirm("是否删除改数据？")) {
+		location.href="deletefoodaction?id="+id;
+	} else {
+		alert("该操作已取消！");
 	}
+}
 	function d_close_tj() {
 		$("#tj-admin").dialog('close');
 		$("#tj-addfoodform").form('clear');
@@ -179,15 +188,18 @@
 		$("#xg-id").val(id);
 		$('#xg-admin').dialog('open');
 	}
+	
 	$("#xg-but").click(
 			function() {
-				if ($("#xg-name").val().length == 0
-						|| $("#xg-password").val().length == 0
-						|| $("#xg-repassword").val().length == 0) {
+				if ($("#foodname1").val().length==0||$("#catelog_id").val().length==0||$("#food_message1").val().length==0||$("#food_price1").val().length==0) {
 					alert("信息不能为空")
 				} else {
 					$("#xg-adminform").submit();
 				}
 			});
+	
+	$("#c-but").click(function(){
+		location.href="selectfoodbyidaction?id="+$("#queryid").val();
+	})
 </script>
 </html>
