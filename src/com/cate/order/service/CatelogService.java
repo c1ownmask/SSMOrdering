@@ -55,4 +55,11 @@ public class CatelogService {
 		return dao.updatecatelog(catelog);
 	}
 
+	/**
+	 * @Ps:Catelog模糊查询Service
+	 */
+	public List<Catelog> slelectcatebyid(String id) {
+		return dao.selectcatelogbyid(id);
+	}
+
 }

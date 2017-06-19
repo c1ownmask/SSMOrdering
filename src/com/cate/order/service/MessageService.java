@@ -23,4 +23,38 @@ public class MessageService {
 		list = dao.selectmessage();
 		return list;
 	}
+
+	/**
+	 * @PS:Message模糊查询Service
+	 */
+	public List<Message> selectmessagebyid(String id) {
+		return dao.selectmessagebyid(id);
+	}
+
+	/**
+	 * @PS:Message添加Service
+	 */
+	public boolean registermessage(Message message) {
+		return dao.registermessager(message);
+	}
+
+	public int selectmessagenum() {
+		return dao.selectmessagenum();
+	}
+	
+	public String selectId() {
+		return dao.selectId();
+	}
+	
+	/**
+	 * @PS:Message删除Service
+	 */
+	public boolean deletemessageservice(String id) {
+		return dao.deletemessage(id);
+	}
+
+	
+
+
+	
 }
