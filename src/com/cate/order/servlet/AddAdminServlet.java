@@ -46,7 +46,7 @@ public class AddAdminServlet extends HttpServlet {
 		String repassword = request.getParameter("repassword");
 		if(!password.equals(repassword)){
 			request.setAttribute("message", "两次密码不同");
-			request.getRequestDispatcher("index-admin.jsp").forward(request, response);
+			request.getRequestDispatcher("selectalladminservlet").forward(request, response);
 		}else{
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			String date = df.format(new Date());

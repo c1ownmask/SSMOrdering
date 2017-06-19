@@ -5,7 +5,7 @@ import java.util.Date;
 public class Eamil {
 private String id;
 private String content;
-private Date time;
+private String time;
 private String userid;
 
 
@@ -22,10 +22,10 @@ public String getContent() {
 public void setContent(String content) {
 	this.content = content;
 }
-public Date getTime() {
+public String getTime() {
 	return time;
 }
-public void setTime(Date time) {
+public void setTime(String time) {
 	this.time = time;
 }
 public String getUserid() {
@@ -35,11 +35,13 @@ public void setUserid(String userid) {
 	this.userid = userid;
 }
 
-
 public Eamil() {
 }
 
-public Eamil(String id, String content, Date time, String userid) {
+public Eamil(String id) {
+	this.id = id;
+}
+public Eamil(String id, String content, String time, String userid) {
 	super();
 	this.id = id;
 	this.content = content;

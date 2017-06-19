@@ -45,8 +45,8 @@ public class ChangeAdminServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String repassword = request.getParameter("repassword");
 		if(!password.equals(repassword)){
-			request.setAttribute("message", "两次密码不一样");
-			request.getRequestDispatcher("index-admin.jsp").forward(request, response);
+			request.setAttribute("message", "修改失败。两次密码不同，请重新输入！！");
+			request.getRequestDispatcher("selectalladminservlet").forward(request, response);
 		}else{
 			Admin admin = new Admin(id,username,repassword);
 			AdminService service = new AdminService();
