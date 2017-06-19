@@ -28,6 +28,12 @@ public class AdminDao {
 			ps.setString(1, adminname);
 			ps.setString(2, password);
 			rs=ps.executeQuery();
+			while(rs.next()){
+				admin=new Admin(rs.getString("id"), rs.getString("adminname"), rs.getString("adminname"), rs.getString("create_Time"));
+			}
+			if(null!=admin){
+				return admin;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
