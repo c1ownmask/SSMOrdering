@@ -23,23 +23,21 @@
 	<div class="content">
 		<div class="content-headtab">
 			<p>
-				留言列表 <span> <a href="#" class="c-tianjia"
+				留言列表 <span> <a href="#" class="c-tianjia" id="tjmessage"
 					onclick="javascript:$('#tj-admin').dialog('open')">[添加留言]</a>
 					<div id="tj-admin" class="easyui-dialog" modal="true"
 						closable="false" closed="true" title="修改留言信息"
 						style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
 						<form id="addlygl" action="addmessageservlet" method="post">
 							<div class="w-index">
-								<label class="w-label-1">留言顾客：</label> <input class="w-itext"
-									id="tjlygk" type="text" value="" placeholder="请输入留言顾客" />
+								<label class="w-label-1">留言顾客：</label> <select id="user_id" style="width: 200px"></select>
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">留言菜品：</label> <input class="w-itext"
-									id="tjlycp" type="text" value="" placeholder="请输入留言菜品" />
+								<label class="w-label-1">留言菜品：</label> <select id="food_id" style="width: 200px"></select>
 							</div>
 							<div class="w-index">
 								<label class="w-label-1">留言内容：</label> <input class="w-itext"
-									id="tjlynr" type="text" value="" placeholder="请输入留言内容" />
+									id="tjlynr" type="text" value="" placeholder="请输入留言内容" style="width: 200px"/>
 							</div>
 							<div class="w-index"
 								style="text-align: center; margin-top: 30px;">
@@ -161,6 +159,48 @@
 	//查询留言管理事件
 	$("#querybutton").click(function(){
 		location.href="selectmessagebyidservlet?id="+$("#query").val();
+	});
+	
+	$("#tjmessage").click(function() {
+		$.ajax({
+			type:"post",
+			url:"selectalluseraction",
+			async:true,
+			success:function(data){
+				var json=jQuery.parseJSON(data);
+				var list=json[0].list;
+				console.log(list);
+				var str="";
+				for(var i in list){
+					str+="<option id="+'userid'+" value="+list[i].id+">"+list[i].username+"</option>";
+					console.log(list[i].username);
+				}
+				$("#user_id").html(str);
+			},error:function(data){
+				alert("出错了！")
+			}
+		});
+	});
+	
+	$("#tjmessage").click(function() {
+		$.ajax({
+			type:"post",
+			url:"selectallfoodaction",
+			async:true,
+			success:function(data){
+				var json=jQuery.parseJSON(data);
+				var list=json[0].list;
+				console.log(list);
+				var str="";
+				for(var i in list){
+					str+="<option id="+'foodid'+" value="+list[i].id+">"+list[i].foodname+"</option>";
+					console.log(list[i].username);
+				}
+				$("#food_id").html(str);
+			},error:function(data){
+				alert("出错了！")
+			}
+		});
 	});
 </script>
 </html>
