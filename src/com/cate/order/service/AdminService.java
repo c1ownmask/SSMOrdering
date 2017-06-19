@@ -48,4 +48,8 @@ public class AdminService {
 	public boolean adminchange(Admin admin) {
 		return dao.adminupdate(admin);
 	}
+
+	public boolean removeadmin(Admin admin) {
+		return dao.admindelete(admin);
+	}
 }

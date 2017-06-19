@@ -1,7 +1,7 @@
 body{min-width:1000px;font-family:"Microsoft YaHei";}
 SW{width:1000px;margin: 0 auto;}
 select{outline: none;cursor: pointer;}
-input {outline: none;text-overflow:ellopsis;}
+input {outline: none;}
 table td{text-overflow:ellipsis;white-space: nowrap;}
 #header{width:100%;height:90px;float: left;background: burlywood;border-bottom: 3px solid #1E90FF;overflow: hidden;}
 #header .header-welcome{width:100%;height:60px;line-height:60px;font-weight:bold;text-align:center;color:#fff;font-size:30px;float:left;}
@@ -37,6 +37,6 @@ table td{text-overflow:ellipsis;white-space: nowrap;}
 .content .content-foot .content-tab .c-taba:hover{text-decoration: underline;}
 .w-index{width:100%;height:30px;margin:10px 10px 10px 30px;float: left;font-size: 14px;line-height: 30px;}
 .w-index .w-label-1{width:100px;float: left;color:#333;text-align: center;}
-.w-index .w-itext{width:200px;height:28px;line-height: 28px;color:#666;border-radius: 3px;border:1px solid #999;text-indent: 5px;font-size: 13px;}
+.w-index .w-itext{width:200px;height:28px;line-height: 28px;float:left;color:#666;border-radius: 3px;border:1px solid #999;text-indent: 5px;font-size: 13px;}
 .w-index .w-but1{width:50px;height:30px;margin-right: 20px;cursor: pointer;}
 .content .content-foot .c-foot{width:100%;height:40px;line-height:40px;padding:0 26px;text-align:right;float:left;border-bottom:1px solid #9ECE0C;}

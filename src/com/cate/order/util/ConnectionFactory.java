@@ -7,16 +7,17 @@ package com.cate.order.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+ 
 public class ConnectionFactory {
 	static Connection conn=null;
 	public static Connection getConnection(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ordermanager","root","123456");
+			conn=DriverManager.getConnection("jdbc:mysql://192.168.1.81:3306/ordermanager","root","root");
+			System.out.println("连接成功");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
 		return conn;
@@ -28,5 +29,8 @@ public class ConnectionFactory {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public static void main(String[] args) {
+		getConnection();
 	}
 }
