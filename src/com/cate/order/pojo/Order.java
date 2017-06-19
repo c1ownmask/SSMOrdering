@@ -1,13 +1,11 @@
 package com.cate.order.pojo;
 
-import java.util.Date;
-
 public class Order {
 private String id;
 private double prices;
 private String status;
 private String userid;
-private Date createtime;
+private String createtime;
 
 
 
@@ -35,17 +33,16 @@ public String getUserid() {
 public void setUserid(String userid) {
 	this.userid = userid;
 }
-public Date getCreatetime() {
+
+public String getCreatetime() {
 	return createtime;
 }
-public void setCreatetime(Date createtime) {
+public void setCreatetime(String createtime) {
 	this.createtime = createtime;
 }
-
-
 public Order() {
 }
-public Order(String id, double prices, String status, String userid, Date createtime) {
+public Order(String id, double prices, String status, String userid, String createtime) {
 	super();
 	this.id = id;
 	this.prices = prices;
