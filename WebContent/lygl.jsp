@@ -125,7 +125,6 @@
 	</div>
 </body>
 <script type="text/javascript">
-
 	function remove() {
 		if (confirm("是否删除该数据？")) {
 			alert("该数据已被删除");
