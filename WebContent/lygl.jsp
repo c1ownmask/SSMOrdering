@@ -30,19 +30,23 @@
 						style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
 						<form id="addlygl" action="addmessageservlet" method="post">
 							<div class="w-index">
-								<label class="w-label-1">留言顾客：</label> <select id="user_id" style="width: 200px"></select>
+								<label class="w-label-1">留言顾客：</label> <select id="user_id"
+									name="user_id" style="width: 200px"></select>
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">留言菜品：</label> <select id="food_id" style="width: 200px"></select>
+								<label class="w-label-1">留言菜品：</label> <select id="food_id"
+									name="food_id" style="width: 200px"></select>
 							</div>
 							<div class="w-index">
 								<label class="w-label-1">留言内容：</label> <input class="w-itext"
-									id="tjlynr" type="text" value="" placeholder="请输入留言内容" style="width: 200px"/>
+									id="tjlynr" name="content" type="text" value=""
+									placeholder="请输入留言内容" style="width: 200px" />
 							</div>
 							<div class="w-index"
 								style="text-align: center; margin-top: 30px;">
-								<input class="w-but1" type="button" value="提交" id="subbutlygl" /> <input
-									class="w-but1" type="button" onclick="d_close_tj()" value="返回" />
+								<input class="w-but1" type="button" value="提交" id="subbutlygl" />
+								<input class="w-but1" type="button" onclick="d_close_tj()"
+									value="返回" />
 							</div>
 						</form>
 					</div>
@@ -85,34 +89,39 @@
 							<td>${message.foodid}</td>
 							<td>${message.content}</td>
 							<td>${message.time}</td>
-							<td><span> <a class="c-taba" href="#"
-									onclick="javascript:$('#xg-admin').dialog('open')">修改</a> <!--closed="true"-->
+							<td><span> <a class="c-taba" href="#" id="xgmessage"
+									onclick="tanchuang('${message.id}')">修改</a> <!--closed="true"-->
 									<div id="xg-admin" class="easyui-dialog" modal="true"
 										closable="false" closed="true" title="修改留言信息"
-										style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
-										<form id="" action="" method="">
+										style="width: 400px; height: 350px; background: #fff; overflow: hidden;">
+										<form id="updatelygl" action="" method="post">
 											<div class="w-index">
-												<label class="w-label-1">编号：</label> <input class="w-itext"
-													disabled="disabled" type="text" value=""
-													placeholder="请输入编号" />
+												<label class="w-label-1">编号：</label><input type="text"
+													disabled="true" style="width: 200px" id="message_id"
+													name="message_id">
 											</div>
 											<div class="w-index">
-												<label class="w-label-1">菜品种类：</label> <input
-													class="w-itext" type="text" value="" placeholder="请输入菜品种类" />
+												<label class="w-label-1">留言顾客：</label> <select id="user_id1"
+													name="user_id1" style="width: 200px"></select>
 											</div>
 											<div class="w-index">
-												<label class="w-label-1">菜品种类信息：</label> <input
-													class="w-itext" type="text" value=""
-													placeholder="请输入菜品种类信息" />
+												<label class="w-label-1">留言菜品：</label> <select id="food_id1"
+													name="food_id1" style="width: 200px"></select>
+											</div>
+											<div class="w-index">
+												<label class="w-label-1">留言内容：</label> <input
+													class="w-itext" id="content1" name="content1" type="text"
+													value="" placeholder="请输入留言内容" style="width: 200px" />
 											</div>
 											<div class="w-index"
 												style="text-align: center; margin-top: 30px;">
-												<input class="w-but1" type="button" value="提交"
-													/> <input class="w-but1" type="button"
+												<input class="w-but1" type="button" id="resivebutton"
+													value="提交" /> <input class="w-but1" type="button"
 													onclick="d_close()" value="返回" />
 											</div>
 										</form>
-									</div> / <a class="c-taba" onclick="remove()" href="deletemessageaction?id=${message.id}">删除</a>
+									</div> / <a class="c-taba" onclick="remove()"
+									href="deletemessageaction?id=${message.id}">删除</a>
 							</span></td>
 						</tr>
 					</c:forEach>
@@ -142,64 +151,92 @@
 		//清除表单缓存
 		$("#xg-form").form('clear');
 	}
-	
-	//添加菜品种类事件
-	$("#subbutlygl").click(
-			function() {
-				if ($("#tjlygk").val().length == 0
-						|| $("#tjlycp").val().length == 0
-							||$("#tjlynr").val().length == 0){
-					alert("输入框不能为空");
-				} else {
-					$("#addlygl").submit();
-				}
-			});
-	
+
 	//查询留言管理事件
-	$("#querybutton").click(function(){
-		location.href="selectmessagebyidservlet?id="+$("#query").val();
+	$("#querybutton").click(function() {
+		location.href = "selectmessagebyidservlet?id=" + $("#query").val();
 	});
-	
-	$("#tjmessage").click(function() {
-		$.ajax({
-			type:"post",
-			url:"selectalluseraction",
-			async:true,
-			success:function(data){
-				var json=jQuery.parseJSON(data);
-				var list=json[0].list;
-				console.log(list);
-				var str="";
-				for(var i in list){
-					str+="<option id="+'userid'+" value="+list[i].id+">"+list[i].username+"</option>";
-					console.log(list[i].username);
+
+	function tanchuang(id) {
+		$('#xg-admin').dialog('open');
+		$("#message_id").val(id);
+	};
+
+	$("#tjmessage,#xgmessage")
+			.click(
+					function() {
+						$
+								.ajax({
+									type : "post",
+									url : "selectalluseraction",
+									async : true,
+									success : function(data) {
+										var json = jQuery.parseJSON(data);
+										var list = json[0].list;
+										console.log(list);
+										var str = "";
+										for ( var i in list) {
+											str += "<option id="+'userid'+" value="+list[i].id+">"
+													+ list[i].username
+													+ "</option>";
+											console.log(list[i].username);
+										}
+										$("#user_id").html(str);
+										$("#user_id1").html(str);
+									},
+									error : function(data) {
+										alert("出错了！")
+									}
+								});
+					});
+
+	$("#tjmessage,#xgmessage")
+			.click(
+					function() {
+						$
+								.ajax({
+									type : "post",
+									url : "selectallfoodaction",
+									async : true,
+									success : function(data) {
+										var json = jQuery.parseJSON(data);
+										var list = json[0].list;
+										console.log(list);
+										var str = "";
+										for ( var i in list) {
+											str += "<option id="+'foodid'+" value="+list[i].id+">"
+													+ list[i].foodname
+													+ "</option>";
+											console.log(list[i].username);
+										}
+										$("#food_id").html(str);
+										$("#food_id1").html(str);
+									},
+									error : function(data) {
+										alert("出错了！")
+									}
+								});
+					});
+
+	$("#subbutlygl").click(function() {
+		if ($("#tjlynr").val().trim().length == 0) {
+			alert("请填写完数据");
+		} else {
+			$("#addlygl").submit();
+		}
+	});
+
+	$("#resivebutton").click(
+			function() {
+				if ($("#content1").val().trim().length == 0) {
+					alert("请填写完数据");
+				} else {
+					location.href = "updatemessageaction?id="
+							+ $("#message_id").val() + "&userid="
+							+ $("#user_id1").val() + "&foodid="
+							+ $("#food_id1").val() + "&content="
+							+ $("#content1").val();
 				}
-				$("#user_id").html(str);
-			},error:function(data){
-				alert("出错了！")
-			}
-		});
-	});
-	
-	$("#tjmessage").click(function() {
-		$.ajax({
-			type:"post",
-			url:"selectallfoodaction",
-			async:true,
-			success:function(data){
-				var json=jQuery.parseJSON(data);
-				var list=json[0].list;
-				console.log(list);
-				var str="";
-				for(var i in list){
-					str+="<option id="+'foodid'+" value="+list[i].id+">"+list[i].foodname+"</option>";
-					console.log(list[i].username);
-				}
-				$("#food_id").html(str);
-			},error:function(data){
-				alert("出错了！")
-			}
-		});
-	});
+			})
 </script>
 </html>

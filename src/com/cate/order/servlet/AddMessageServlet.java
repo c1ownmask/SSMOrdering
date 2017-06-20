@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,10 +43,12 @@ public class AddMessageServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userid = request.getParameter("userid");
-		String foodid = request.getParameter("foodid");
+		String userid = request.getParameter("user_id");
+		String foodid = request.getParameter("food_id");
 		String content = request.getParameter("content");
-		Message message = new Message(getId("M"), userid, foodid, content);
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time=format.format(new Date());
+		Message message = new Message(getId("M"), userid, foodid, content,time);
 		MessageService service = new MessageService();
 		boolean issuccess = service.registermessage(message);
 		if (issuccess) {
