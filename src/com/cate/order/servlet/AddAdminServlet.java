@@ -39,7 +39,6 @@ public class AddAdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("新增管理员");
 		String id= request.getParameter("id");
 		String username=request.getParameter("username");
 		String password = request.getParameter("password");
@@ -58,5 +57,4 @@ public class AddAdminServlet extends HttpServlet {
 			}
 		}
 	}
-
 }

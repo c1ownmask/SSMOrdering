@@ -54,4 +54,5 @@ public class AdminService {
 	public boolean removeadmin(Admin admin) {
 		return dao.admindelete(admin);
 	}
+
 }

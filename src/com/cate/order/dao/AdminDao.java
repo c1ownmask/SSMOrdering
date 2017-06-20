@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cate.order.pojo.Admin;
+import com.cate.order.pojo.Notice;
 import com.cate.order.util.ConnectionFactory;
 import com.sun.media.sound.SoftSynthesizer;
 
@@ -122,12 +123,13 @@ public class AdminDao {
 	public boolean adminupdate(Admin admin) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
+		int i=0;
 		try {
 			ps = conn.prepareStatement("update t_admin set adminname=?,password=? where id=?"); 
 			ps.setString(1, admin.getAdminname());
 			ps.setString(2, admin.getPassword());
 			ps.setString(3, admin.getId());
-			int i = ps.executeUpdate();
+			i = ps.executeUpdate();
 			if (i == 0) {
 				return false;
 			} else {
@@ -161,13 +163,23 @@ public class AdminDao {
 				admin = new Admin(rs.getString("id"),rs.getString("adminname"),rs.getString("password"),rs.getString("create_Time"));
 				list.add(admin);
 			}
+			if(list.size()>0){
+				return list;
+			}else{
+				return null;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			if (null != ps) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			ConnectionFactory.CloseConnection(conn);
 		}
-		if(list.size()>0){
-			return list;
-		}else{
-			return null;
-		}
-	}
+		return null;
+	}	
 }

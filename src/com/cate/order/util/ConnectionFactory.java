@@ -14,7 +14,6 @@ public class ConnectionFactory {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn=DriverManager.getConnection("jdbc:mysql://192.168.1.81:3306/ordermanager","root","root");
-			System.out.println("连接成功");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) { 
@@ -29,8 +28,5 @@ public class ConnectionFactory {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	public static void main(String[] args) {
-		getConnection();
 	}
 }
