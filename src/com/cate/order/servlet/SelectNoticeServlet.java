@@ -1,27 +1,32 @@
 package com.cate.order.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.cate.order.pojo.Admin;
-import com.cate.order.service.AdminService;
+import com.cate.order.pojo.Notice;
+import com.cate.order.service.NoticeService;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class SelectNoticeServlet
  */
-@WebServlet("/loginaction")
-public class LoginServlet extends HttpServlet {
+//查找所有公告
+@WebServlet("/selectnoticeaction")
+public class SelectNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public SelectNoticeServlet() {
+        super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,18 +40,12 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adminname=request.getParameter("adminname");
-		String password=request.getParameter("password");
-		HttpSession session=request.getSession();
-		if(null!=adminname&&!"".equals(adminname)&&null!=password&&!"".equals(password)){
-			AdminService service=new AdminService();
-			Admin admin=new Admin();
-			admin=service.adminlogin(adminname,password);
-			if(null!=admin){
-				session.setAttribute("adminname", admin.getAdminname());
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-			}
-		}
+		Notice notice = new Notice();
+		NoticeService service = new NoticeService();
+		List<Notice> list = new ArrayList<Notice>();
+		list = service.selectnotice();
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("index-notice.jsp").forward(request, response);
 	}
 
 }

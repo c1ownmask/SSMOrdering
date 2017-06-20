@@ -8,20 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cate.order.pojo.Admin;
-import com.cate.order.service.AdminService;
-
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class LoginOffServlet
  */
-@WebServlet("/loginaction")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/loginoffaction")
+public class LoginOffServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public LoginOffServlet() {
     }
 
 	/**
@@ -35,18 +32,9 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adminname=request.getParameter("adminname");
-		String password=request.getParameter("password");
 		HttpSession session=request.getSession();
-		if(null!=adminname&&!"".equals(adminname)&&null!=password&&!"".equals(password)){
-			AdminService service=new AdminService();
-			Admin admin=new Admin();
-			admin=service.adminlogin(adminname,password);
-			if(null!=admin){
-				session.setAttribute("adminname", admin.getAdminname());
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-			}
-		}
+		session.invalidate();
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 }

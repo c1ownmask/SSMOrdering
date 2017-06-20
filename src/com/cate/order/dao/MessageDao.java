@@ -154,4 +154,26 @@ public class MessageDao {
 		return false;
 	}
 
+	public boolean updatemessage(Message message) {
+		Connection conn=ConnectionFactory.getConnection();
+		PreparedStatement ps=null;
+		try {
+			ps=conn.prepareStatement("update t_message set content=?,time=?,food_id=?,user_id=? where id=?;");
+			ps.setString(1, message.getContent());
+			ps.setString(2, message.getTime());
+			ps.setString(3, message.getFoodid());
+			ps.setString(4, message.getUserid());
+			ps.setString(5, message.getId());
+			int i=ps.executeUpdate();
+			if(i>0){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

@@ -22,6 +22,13 @@
 
 </head>
 <body>
+<%
+	String adminname=(String)session.getAttribute("adminname");
+	if(null==adminname){
+		
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
+%>
 	<div class="content">
 		<div class="content-headtab">
 			<p>

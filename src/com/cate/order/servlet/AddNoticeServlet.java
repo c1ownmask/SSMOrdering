@@ -1,7 +1,9 @@
 package com.cate.order.servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,21 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cate.order.pojo.Admin;
+import com.cate.order.pojo.Notice;
 import com.cate.order.service.AdminService;
-
+import com.cate.order.service.NoticeService;
 
 /**
- * Servlet implementation class ChangeAdminServlet
- * 修改管理员信息
+ * Servlet implementation class AddNoticeServlet
  */
-@WebServlet("/changeadminaction")
-public class ChangeAdminServlet extends HttpServlet {
+//新增公告信息
+@WebServlet("/addnoticeaction")
+public class AddNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChangeAdminServlet() {
+    public AddNoticeServlet() {
     }
 
 	/**
@@ -39,20 +42,18 @@ public class ChangeAdminServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String repassword = request.getParameter("repassword");
-		if(!password.equals(repassword)){
-			request.setAttribute("message", "修改失败。两次密码不同，请重新输入！！");
-			request.getRequestDispatcher("selectalladminservlet").forward(request, response);
-		}else{
-			Admin admin = new Admin(id,username,repassword);
-			AdminService service = new AdminService();
-			boolean b =service.adminchange(admin);
-			if(b){
-				request.getRequestDispatcher("selectalladminservlet").forward(request, response);
-			}
+//		System.out.println("新增公告");
+		String id=request.getParameter("id");
+		String title=request.getParameter("title");
+		String content = request.getParameter("content");
+		String adminid=request.getParameter("adminid");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String date = df.format(new Date());
+		Notice notice = new Notice(id,content,title,date,adminid);
+		NoticeService service2 = new NoticeService();
+		boolean b = service2.addNotice(notice);
+		if(b){
+			request.getRequestDispatcher("selectnoticeaction").forward(request, response);
 		}
 	}
 

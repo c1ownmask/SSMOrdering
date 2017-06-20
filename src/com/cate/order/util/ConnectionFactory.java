@@ -29,7 +29,4 @@ public class ConnectionFactory {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		getConnection();
-	}
 }

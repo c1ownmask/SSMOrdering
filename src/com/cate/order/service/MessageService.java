@@ -53,6 +53,10 @@ public class MessageService {
 		return dao.deletemessage(id);
 	}
 
+	public boolean updatemessage(Message message) {
+		return dao.updatemessage(message);
+	}
+
 	
 
 

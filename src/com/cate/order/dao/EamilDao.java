@@ -25,14 +25,24 @@ public class EamilDao {
 				eamil = new Eamil(rs.getString("id"), rs.getString("content"), rs.getString("time"),rs.getString("realName"));
 				list.add(eamil);
 			}
+			if (list.size() > 0) {
+				return list;
+			} else {
+				return null;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			if(null !=ps){
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			ConnectionFactory.CloseConnection(conn);
 		}
-		if (list.size() > 0) {
-			return list;
-		} else {
-			return null;
-		}
+		return null;
 	}
 	//删除管理员邮箱信息
 	public boolean deleteeamil(Eamil eamil) {

@@ -69,6 +69,7 @@
 						<label class="c-label">关键字：</label> 
 						<input type="text" class="c-text" value="" placeholder="请输入关键字" /> 
 						<input type="button" class="c-but" value="查询" />
+						<input type="text" class="c-text" value="" placeholder="请输入关键字" /> <input type="button" class="c-but" value="查询" />
 					</form>
 				</div>
 				<div class="content-tab">
@@ -160,10 +161,10 @@
 				function() {
 					if($("#adminId").val().length == 0 || $("#adminName").val().length == 0 || $("#adminPassword").val().length == 0 || $("#adminRepassword").val().length == 0 ){
 						alert("信息不能为空！");
-					}else if($("#adminId").val() != $("#adminName").val()){
-						alert("两次密码不同，请重新输入！");
-					}else{
+					}else if($("#adminPassword").val() == $("#adminRepassword").val()){
 						$("#tj-adminform").submit();
+					}else{
+						alert("两次密码不一样，请重新输入！")
 					}
 		});
 		
