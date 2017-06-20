@@ -68,7 +68,7 @@ public class CatelogDao {
 		}
 		return false;
 	}
-
+  
 	public int selectlognum() {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
