@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adminname=request.getParameter("adminname");
+		String adminname=request.getParameter("username");
 		String password=request.getParameter("password");
 		HttpSession session=request.getSession();
 		if(null!=adminname&&!"".equals(adminname)&&null!=password&&!"".equals(password)){
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			admin=service.adminlogin(adminname,password);
 			if(null!=admin){
 				session.setAttribute("adminname", admin.getAdminname());
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				response.sendRedirect("index.jsp");
 			}
 		}
 	}

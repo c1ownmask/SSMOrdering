@@ -38,6 +38,7 @@ public class UpdateMemberServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id=request.getParameter("resiveid");
+		System.out.println(id);
 		String username=request.getParameter("usernames");
 		String password=request.getParameter("passwords");
 		String sex=request.getParameter("sexs");

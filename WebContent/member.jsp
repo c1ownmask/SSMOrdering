@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>会员管理</title>
@@ -18,17 +19,9 @@
 <script type="text/javascript" src="easyui_1.4.4/jquery.edatagrid.js"></script>
 <script type="text/javascript"
 	src="easyui_1.4.4/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="js/member.js"></script>
-
 </head>
+
 <body>
-<%
-	String adminname=(String)session.getAttribute("adminname");
-	if(null==adminname){
-		
-		request.getRequestDispatcher("login.jsp").forward(request, response);
-	}
-%>
 	<div class="content">
 		<div class="content-headtab">
 			<p>
@@ -50,8 +43,9 @@
 			<div class="content-sub">
 
 				<label class="c-label">关键字：</label> <input type="text"
-					class="c-text" value="" id="query" name="query" placeholder="请输入关键字" /> <input
-					type="button" class="c-but" id="querybutton" name="querybutton" value="查询" />
+					class="c-text" value="" id="query" name="query"
+					placeholder="请输入关键字" /> <input type="button" class="c-but"
+					id="querybutton" name="querybutton" value="查询" />
 
 			</div>
 			<div class="content-tab">
@@ -71,29 +65,28 @@
 					</tr>
 					<c:forEach items="${list}" var="user">
 						<tr>
-							<td id="idtext">${user.id}</td>
-							<td id="usernametext" class="usernametext">${user.username }</td>
-							<td id="passwordtext">${user.password }</td>
-							<td id="sextext">${user.sex }</td>
-							<td id="realnametext">${user.realname }</td>
-							<td id="teltext">${user.tel }</td>
-							<td id="addresstext">${user.address }</td>
+							<td>${user.id}</td>
+							<td>${user.username }</td>
+							<td>${user.password }</td>
+							<td>${user.sex }</td>
+							<td>${user.realname }</td>
+							<td>${user.tel }</td>
+							<td>${user.address }</td>
 							<td style="font-size: 8px;">${user.createtime }</td>
 							<td style="font-size: 10px;">${user.logintime }</td>
 							<td style="font-size: 10px;">${user.updatetime }</td>
-							<td><span><a class="c-taba" 
-									href="deleteuseraction?id=${user.id}">删除</a> </span></td>
+							<td><span> <a class="c-taba" href="#"
+									onclick="tanchuang('${user.id}')">修改</a> /<a class="c-taba"
+									href="deleteuseraction?id=${user.id}">删除</a>
+							</span></td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
-			<div class="c-foot">
-				<p>1/1</p>
-			</div>
 		</div>
-		<div id="win" class="easyui-dialog" title="添加会员信息" closed="true" modal="true"
-			close="true"
-			style="width: 400px; height: 300px; background: #fff; overflow: hidden;z-index: 3">
+		<div id="win" class="easyui-dialog" title="添加会员信息" closed="true"
+			modal="true" close="true"
+			style="width: 400px; height: 300px; background: #fff; overflow: hidden; z-index: 3">
 			<form action="addmemberaction" method="post" id="addmemberform">
 				<table style="margin: auto; line-height: 30px;">
 					<tr>
@@ -134,11 +127,12 @@
 				<input id="returnbutton" class="w-but1" type="button" value="返回" />
 			</div>
 		</div>
-		<div id="win1" class="easyui-dialog" title="修改会员信息" closed="true" modal="true"
-			close="true"
-			style="width: 400px; height: 300px; background: #fff; overflow: hidden;z-index: 3">
+		<div id="win1" class="easyui-dialog" title="修改会员信息" closed="true"
+			modal="true"
+			style="width: 400px; height: 300px; background: #fff; overflow: hidden; z-index: 3">
 			<form action="updatememberaction" method="post" id="updatememberform">
-				<input type="text" id="resiveid" name="resiveid" style="display: none"/>
+				<input type="text" id="resiveid" name="resiveid"
+					style="display: none;" />
 				<table style="margin: auto; line-height: 30px;">
 					<tr>
 						<td><label>姓名：</label></td>
@@ -153,7 +147,7 @@
 					<tr>
 						<td><label>性别：</label></td>
 						<td><input type="radio" name="sexs" id="sexs" value="男" />男
-							&nbsp;&nbsp;<input type="radio" name="sexs" id="sexs" value="女" />女</td>
+							&nbsp;&nbsp; <input type="radio" name="sexs" id="sexs" value="女" />女</td>
 					</tr>
 					<tr>
 						<td><label>真实姓名：</label></td>
@@ -179,5 +173,46 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$("#addmember").click(function() {
+			$("#win").dialog('open');
+		});
+
+		$("#returnbutton").click(function() {
+			$("#win").dialog('close');
+		});
+
+		$("#submitbutton").click(function() {
+			$("#addmemberform").submit();
+		});
+
+		$("#resivereturn").click(function() {
+			$("#win1").dialog('close');
+		});
+
+		$("#querybutton").click(function() {
+			location.href = "selectuserbyidservlet?id=" + $("#query").val();
+		});
+
+		function tanchuang(id) {
+			$("#win1").dialog('open');
+			$("#resiveid").val(id);
+		};
+
+		$("#resivesubmitbutton").click(
+				function() {
+					if ($("#usernames").val().length == 0
+							|| $("#passwords").val().length == 0
+							|| $("#sexs").val().length == 0
+							|| $("#realnames").val().length == 0
+							|| $("#tels").val().length == 0
+							|| $("#addresss").val().length == 0) {
+						alert("请填全参数");
+					} else {
+						$("#updatememberform").submit();
+					}
+				});
+	</script>
 </body>
+
 </html>
