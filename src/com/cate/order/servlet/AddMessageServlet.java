@@ -4,26 +4,28 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cate.order.pojo.Catelog;
-import com.cate.order.service.CatelogService;
+import com.cate.order.pojo.Message;
+import com.cate.order.service.MessageService;
 
 /**
- * Servlet implementation class AddCatelogServlet
+ * Servlet implementation class AddMessageServlet
  */
-@WebServlet("/addcatelogservlet")
-public class AddCatelogServlet extends HttpServlet {
+@WebServlet("/addmessageservlet")
+public class AddMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddCatelogServlet() {
+	public AddMessageServlet() {
 	}
 
 	/**
@@ -41,16 +43,18 @@ public class AddCatelogServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		String cateloginfo = request.getParameter("cateloginfo");
-		String catelogname = request.getParameter("catelogname");
-		Catelog catelog = new Catelog(getId("C"), catelogname, cateloginfo);
-		CatelogService service = new CatelogService();
-		boolean issuccess = service.registercatelog(catelog);
+		String userid = request.getParameter("user_id");
+		String foodid = request.getParameter("food_id");
+		String content = request.getParameter("content");
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time=format.format(new Date());
+		Message message = new Message(getId("M"), userid, foodid, content,time);
+		MessageService service = new MessageService();
+		boolean issuccess = service.registermessage(message);
 		if (issuccess) {
-			request.getRequestDispatcher("selectcatelogservlet").forward(request, response);
+			request.getRequestDispatcher("selectmessageservlet").forward(request, response);
 		}
+
 	}
 
 	// 账户尾号
@@ -60,8 +64,8 @@ public class AddCatelogServlet extends HttpServlet {
 	private int limit = 9999;
 
 	private String getId(String i) {
-		CatelogService service = new CatelogService();
-		int num = service.selectcatelognum();
+		MessageService service = new MessageService();
+		int num = service.selectmessagenum();
 		String hisId = null;
 		String id1 = null;
 		String id2 = null;
@@ -104,5 +108,4 @@ public class AddCatelogServlet extends HttpServlet {
 		}
 		return c;
 	}
-
 }

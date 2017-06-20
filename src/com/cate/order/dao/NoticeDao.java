@@ -45,16 +45,97 @@ public class NoticeDao {
 		return null;
 	}
 
-//	public boolean addnotice(Notice notice) {
-//		Connection conn = ConnectionFactory.getConnection();
-//		PreparedStatement ps =null;
-//		int i=0;
-//		try {
-//			ps=conn.prepareStatement("insert into t_notice()");
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
+	public boolean addnotice(Notice notice) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps =null;
+		int i=0;
+		try {
+			ps=conn.prepareStatement("insert into t_notice(id,title,content,create_time,admin_id) value (?,?,?,?,?)");
+			ps.setString(1, notice.getId());
+			ps.setString(2, notice.getTitle());
+			ps.setString(3, notice.getContent());
+			ps.setString(4, notice.getCreatetime());
+			ps.setString(5, notice.getAdminid());
+			i=ps.executeUpdate();
+			if(i==0){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (null != ps) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			ConnectionFactory.CloseConnection(conn);
+		}
+		return false;
+	}
 
+	public boolean removeNotice(Notice notice) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps=null;
+		int i=0;
+		try {
+			ps =conn.prepareStatement("delete from t_notice where id =?");
+			ps.setString(1, notice.getId());
+			i=ps.executeUpdate();
+			if(i==0){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (null != ps) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			ConnectionFactory.CloseConnection(conn);
+		}
+		
+		return false;
+	}
+
+	public boolean updatenotice(Notice notice) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps=null;
+		int i=0;
+		try {
+			ps =conn.prepareStatement("update t_notice set title=?,content=?,update_time=? where id=?");
+			ps.setString(1, notice.getTitle());
+			ps.setString(2, notice.getContent());
+			ps.setString(3, notice.getUpdatetime());
+			ps.setString(4, notice.getId());
+			i=ps.executeUpdate();
+			if(i==0){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (null != ps) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			ConnectionFactory.CloseConnection(conn);
+		}
+		
+		return false;
+	}
+	
 }

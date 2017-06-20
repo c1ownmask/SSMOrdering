@@ -60,16 +60,27 @@ public class Notice {
 
 	public Notice() {
 	}
+	
+	public Notice(String id) {
+		this.id = id;
+	}
 
-	public Notice(String id, String content, String createtime, String title, String adminid) {
+	public Notice(String id, String content, String title, String updatetime) {
 		super();
 		this.id = id;
 		this.content = content;
-		this.createtime = createtime;
 		this.title = title;
-		this.adminid = adminid;
+		this.updatetime = updatetime;
 	}
 
+	public Notice(String id, String content, String title, String createtime, String adminid) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.title = title;
+		this.createtime = createtime;
+		this.adminid = adminid;
+	}
 	public Notice(String id, String content, String createtime, String title, String updatetime, String adminid) {
 		super();
 		this.id = id;

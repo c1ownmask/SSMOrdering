@@ -5,7 +5,6 @@ package com.cate.order.dao;
 */
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,27 +14,26 @@ import java.util.List;
 import com.cate.order.pojo.Admin;
 import com.cate.order.pojo.Notice;
 import com.cate.order.util.ConnectionFactory;
-import com.sun.media.sound.SoftSynthesizer;
 
 public class AdminDao {
 	/**
 	 * @ps 管理员登陆功能
 	 */
-	public Admin adminlogin(Admin admin) {
+	public Admin adminlogin(String adminname, String password) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Admin admin=null;
 		try {
 			ps = conn.prepareStatement("select * from t_admin where adminname=? and password=?");
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				admin = new Admin(rs.getString("id"), rs.getString("adminname"), rs.getString("password"),
-						rs.getString("create_Time"));
+			ps.setString(1, adminname);
+			ps.setString(2, password);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				admin=new Admin(rs.getString("id"), rs.getString("adminname"), rs.getString("adminname"), rs.getString("create_Time"));
 			}
-			if (rs.next()) {
+			if(null!=admin){
 				return admin;
-			} else {
-				return null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,5 +179,5 @@ public class AdminDao {
 			ConnectionFactory.CloseConnection(conn);
 		}
 		return null;
-	}	
+	}
 }

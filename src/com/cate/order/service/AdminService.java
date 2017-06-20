@@ -16,40 +16,39 @@ public class AdminService {
 	/**
 	 * @PS管理员登陆service
 	 */
-	public Admin adminlogin(Admin admin) {
-		if (null != admin) {
-			return dao.adminlogin(admin);
-		}else{
-			return null;
-		}
+	public Admin adminlogin(String adminname, String password) {
+		return dao.adminlogin(adminname,password);
 	}
-	
+
 	/**
 	 * @PS管理员注册
-	 * */
-	public boolean adminregister(Admin admin){
-		if(null!=admin){
+	 */
+	public boolean adminregister(Admin admin) {
+		if (null != admin) {
 			return dao.adminregister(admin);
-		}else{
+		} else {
 			return false;
 		}
 	}
-/*
- * 查找所有管理员
- */
+
+	/**
+	 * @PS查找所有管理员
+	 */
 	public List<Admin> selectalladmin() {
-		List<Admin>list = new ArrayList<Admin>();
-		list =dao.selectalladmin();
+		List<Admin> list = new ArrayList<Admin>();
+		list = dao.selectalladmin();
 		return list;
 	}
-/*
- * 修改管理员信息
- */
+
+	/**
+	 * @PS修改管理员信息
+	 */
 	public boolean adminchange(Admin admin) {
 		return dao.adminupdate(admin);
 	}
-	/*
-	 * 删除管理员信息
+
+	/**
+	 * @PS删除管理员信息
 	 */
 	public boolean removeadmin(Admin admin) {
 		return dao.admindelete(admin);

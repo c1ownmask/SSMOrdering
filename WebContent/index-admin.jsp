@@ -159,10 +159,10 @@
 				function() {
 					if($("#adminId").val().length == 0 || $("#adminName").val().length == 0 || $("#adminPassword").val().length == 0 || $("#adminRepassword").val().length == 0 ){
 						alert("信息不能为空！");
-					}else if($("#adminId").val() != $("#adminName").val()){
-						alert("两次密码不同，请重新输入！");
-					}else{
+					}else if($("#adminPassword").val() == $("#adminRepassword").val()){
 						$("#tj-adminform").submit();
+					}else{
+						alert("两次密码不一样，请重新输入！")
 					}
 		});
 		
@@ -188,6 +188,10 @@
 					$("#xg-adminform").submit();
 				}
 			});
+		//查询关键字事件
+		$("#querybutton").click(function(){
+			
+		})
 	</script>
 
 </html>

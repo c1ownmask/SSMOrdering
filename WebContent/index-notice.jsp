@@ -38,8 +38,8 @@
 								<input class="w-itext" type="text" id="addNoticeContent" name="content" placeholder="请输入公告内容" />
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">发布管理员：</label> 
-								<input class="w-itext" type="text" id="addNoticeName" name="name" placeholder="请输入发布者" />
+								<label class="w-label-1">发布者编号：</label> 
+								<input class="w-itext" type="text" id="addNoticeName" name="adminid" placeholder="请输入发布者" />
 							</div>
 							<div class="w-index" style="text-align: center; margin-top: 30px;">
 								<input id="addNoticebut" class="w-but1" type="button" value="提交" />
@@ -98,7 +98,7 @@
 					</table>
 
 					<div id="updateNoticedialog" class="easyui-dialog" modal="true" closable="false" closed="true" title="修改公告信息" style="width: 400px; background: #fff; overflow: hidden;">
-						<form id="updateNoticeform" action="" method="post">
+						<form id="updateNoticeform" action="updatenoticeaction" method="post">
 							<div class="w-index" style="display: none">
 								<label class="w-label-1">编号：</label>
 								<input class="w-itext" type="text" id="updateNoticeId" name="id" placeholder="请输入编号" />
@@ -111,10 +111,6 @@
 								<label class="w-label-1">公告内容：</label>
 								<input class="w-itext" type="text" id="updateNoticeContent" name="content" placeholder="请输入公告内容" />
 							</div>
-							<div class="w-index">
-								<label class="w-label-1">发布管理员：</label>
-								<input class="w-itext" type="text" id="upadateNoticeName" name="name" placeholder="请输入发布者" />
-							</div>
 							<div class="w-index" style="text-align: center; margin-top: 30px;">
 								<input id="updateNoticebut" class="w-but1" type="button" value="提交" />
 								<input class="w-but1" type="button" onclick="returnUpdateNotice()" value="返回" />
@@ -122,7 +118,7 @@
 						</form>
 					</div>
 					<div id="removeNoticedig" class="easyui-dialog" modal="true" closable="false" closed="true" title="删除公告信息" style="width: 400px; background: #fff; overflow: hidden;">
-						<form id="removeNoticeform" action="" method="post">
+						<form id="removeNoticeform" action="removenoticeaction" method="post">
 							<div class="w-index" style="display: none">
 								<label class="w-label-1">编号：</label>
 								<input class="w-itext" type="text" id="removeNoticeId" name="id" placeholder="请输入编号" />
@@ -159,13 +155,12 @@
 		}
 		
 		function updateNoticedig(id){
-			alert(id);
-			$("#uadateNoticeId").val(id);
+			$("#updateNoticeId").val(id);
 			$("#updateNoticedialog").dialog('open');
 		}
 		
 		$("#updateNoticebut").click(function(){
-			if($("#updateNoticeId").val().length==0 || $("#updateNoticeTitle").val().length ==0 || $("#updateNoticeContent").val().length ==0 || $("#upadateNoticeName").val().length ==0){
+			if($("#updateNoticeTitle").val().length ==0 || $("#updateNoticeContent").val().length ==0){
 				alert("信息不能为空！");
 			}else{
 				$("#updateNoticeform").submit();
@@ -176,8 +171,7 @@
 			$("#updateNoticedialog").dialog('close');
 		}
 		function removeNoticedig(id){
-			alert(id)
-			$("#removeNoticeform").val(id);
+			$("#removeNoticeId").val(id);
 			$("#removeNoticedig").dialog('open');
 		}
 		function returnNotice(){
