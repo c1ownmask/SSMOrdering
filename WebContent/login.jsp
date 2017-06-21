@@ -48,12 +48,20 @@
 						type="password" id="password" name="password" class="login_input">
 						<span id="password-msg" class="error"></span></li>
 					<li class="login-item"><span style="color: red">${message}</span></li>
-					<li class="login-sub"><input type="submit" name="Submit"
+					<li class="login-sub"><input type="button" id="submitbutton" name="Submit"
 						value="登录" /> <input type="reset" name="Reset" value="重置" /></li>
 				</form>
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		$("#submitbutton").click(function() {
+			if($("#username").val().length==0||$("#password").val().length==0){
+				alert("请填全数据!");
+			}else{
+				$("form").submit();
+			}
+		});
+	</script>
 </body>
 </html>
