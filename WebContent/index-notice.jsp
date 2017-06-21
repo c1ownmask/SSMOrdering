@@ -63,9 +63,10 @@
 			</div>
 			<div class="content-foot">
 				<div class="content-sub">
-					<form>
-						<label class="c-label">关键字：</label>
-						<input type="text" class="c-text" value="" placeholder="请输入关键字" /> <input type="button" class="c-but" value="查询" />
+					<form action="selectnoticeidaction" method="post">
+						<label class="c-label">编号：</label>
+						<input type="text" class="c-text" name="id" value="" placeholder="请输入编号" />
+						<input type="submit" class="c-but" value="查询" />
 					</form>
 				</div>
 				<div class="content-tab">

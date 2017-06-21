@@ -27,4 +27,8 @@ public class NoticeService {
 		return dao.updatenotice(notice);
 	}
 
+	public List<Notice> selectnoticeid(String id) {
+		return dao.selectNoticeId(id);
+	}
+
 }
