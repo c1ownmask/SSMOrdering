@@ -51,6 +51,7 @@ public class SelectAllUserUser_1 extends HttpServlet {
 			jsonObject.put("list", list);
 			jsonArray.add(jsonObject);
 		}
+		System.out.println(jsonArray);
 		// 获得输出流
 		PrintWriter out=response.getWriter();
 		// 通过 out 对象将 jsonArray 传到前端页面
