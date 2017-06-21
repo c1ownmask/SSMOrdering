@@ -47,12 +47,7 @@
 					<li class="login-item"><span>密 码：</span> <input
 						type="password" id="password" name="password" class="login_input">
 						<span id="password-msg" class="error"></span></li>
-					<!--<li class="login-item verify">
-					<span>验证码：</span>
-					<input type="text" name="CheckCode" class="login_input verify_input">
-				</li>
-				<img src="images/verify.png" border="0" class="verifyimg" />
-				<div class="clearfix"></div> -->
+					<li class="login-item"><span style="color: red">${message}</span></li>
 					<li class="login-sub"><input type="submit" name="Submit"
 						value="登录" /> <input type="reset" name="Reset" value="重置" /></li>
 				</form>

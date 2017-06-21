@@ -45,6 +45,9 @@ public class LoginServlet extends HttpServlet {
 			if(null!=admin){
 				session.setAttribute("adminname", admin.getAdminname());
 				response.sendRedirect("index.jsp");
+			}else{
+				request.setAttribute("message", "用户名或密码错误");
+				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
 		}
 	}
