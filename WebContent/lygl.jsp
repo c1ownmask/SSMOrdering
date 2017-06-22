@@ -120,8 +120,8 @@
 													onclick="d_close()" value="返回" />
 											</div>
 										</form>
-									</div> / <a class="c-taba" onclick="remove()"
-									href="deletemessageaction?id=${message.id}">删除</a>
+									</div> / <a class="c-taba" 
+									onclick="JavaScripe:deleteuser('${message.id}')">删除</a>
 							</span></td>
 						</tr>
 					</c:forEach>
@@ -134,13 +134,13 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function remove() {
-		if (confirm("是否删除该数据？")) {
-			alert("该数据已被删除");
-		} else {
-			alert("该操作已取消！");
-		}
+
+//删除点击事件
+function deleteuser(id) {
+	if(confirm("确定要删除该条信息吗？")){
+		window.location.href="deletemessageaction?id="+id;
 	}
+}
 	function d_close_tj() {
 		$("#tj-admin").dialog('close');
 		$("#tj-form").form('clear');

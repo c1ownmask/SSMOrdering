@@ -110,11 +110,11 @@
 													onclick="d_close()" value="返回" />
 											</div>
 										</form>
-									</div> / <a class="c-taba" onclick="remove()"
-									href="deletecatelogaction?id=${catelog.id}">删除</a>
+									</div> / <a class="c-taba" 
+									onclick="JavaScripe:deleteuser('${catelog.id}')">删除</a>
 							</span></td>
 						</tr>
-					</c:forEach>
+					</c:forEach> 
 				</table>
 			</div>
 			<div class="c-foot">
@@ -124,13 +124,6 @@
 	</div>
 </body>
 <script type="text/javascript">
-	function remove() {
-		if (confirm("是否删除该数据？")) {
-			alert("该数据已被删除");
-		} else {
-			alert("该操作已取消！");
-		}
-	}
 
 	function d_close_tj() {
 		$("#tj-cpzl").dialog('close');
@@ -174,5 +167,12 @@
 	$("#querybutton").click(function(){
 		location.href="selectcatelogbyidservlet?id="+$("#query").val();
 	});
+	
+	//删除点击事件
+	function deleteuser(id) {
+		if(confirm("确定要删除该条信息吗？")){
+			window.location.href="deletecatelogaction?id="+id;
+		}
+	}
 </script>
 </html>
