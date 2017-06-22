@@ -13,6 +13,7 @@ import com.cate.order.util.ConnectionFactory;
 public class NoticeDao {
 
 	public List<Notice> selectNotice() {
+		//查找所有公告信息
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -44,7 +45,7 @@ public class NoticeDao {
 		}
 		return null;
 	}
-
+	//新增公告信息
 	public boolean addnotice(Notice notice) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps =null;
@@ -76,7 +77,7 @@ public class NoticeDao {
 		}
 		return false;
 	}
-
+	//删除公告信息
 	public boolean removeNotice(Notice notice) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps=null;
@@ -105,7 +106,7 @@ public class NoticeDao {
 		
 		return false;
 	}
-
+	//修改公告信息
 	public boolean updatenotice(Notice notice) {
 		Connection conn = ConnectionFactory.getConnection();
 		PreparedStatement ps=null;
@@ -136,6 +137,38 @@ public class NoticeDao {
 		}
 		
 		return false;
+	}
+	//关键字查询
+	public List<Notice> selectNoticeId(String id) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Notice> list=new ArrayList<Notice>();
+		Notice notice;
+		try {
+			ps = conn.prepareStatement("select n.id,n.content,n.create_time,n.title,n.update_time,a.adminname from t_notice n,t_admin a where n.admin_id = a.id and n.id like ?");
+			ps.setString(1, "%"+id+"%");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				notice = new Notice(rs.getString("id"),rs.getString("content"),rs.getString("create_time"),rs.getString("title"),rs.getString("update_time"),rs.getString("adminname"));
+				list.add(notice);
+			}
+			if(null !=list){
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (null != ps) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			ConnectionFactory.CloseConnection(conn);
+		}
+		return null;
 	}
 	
 }

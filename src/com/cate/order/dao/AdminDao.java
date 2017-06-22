@@ -180,4 +180,36 @@ public class AdminDao {
 		}
 		return null;
 	}
+
+	public List<Admin> selectAdminId(String id) {
+		Connection conn = ConnectionFactory.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Admin>list =new ArrayList<Admin>();
+		Admin admin;
+		try {
+			ps=conn.prepareStatement("select * from t_admin where id like ?");
+			ps.setString(1, "%"+id+"%");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				admin=new Admin(rs.getString("id"),rs.getString("adminname"),rs.getString("password"),rs.getString("create_Time"));
+				list.add(admin);
+			}
+			if(null!=list){
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (null != ps) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			ConnectionFactory.CloseConnection(conn);
+		}
+		return null;
+	}
 }

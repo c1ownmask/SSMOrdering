@@ -17,7 +17,7 @@ public class AdminService {
 	 * @PS管理员登陆service
 	 */
 	public Admin adminlogin(String adminname, String password) {
-		return dao.adminlogin(adminname,password);
+		return dao.adminlogin(adminname, password);
 	}
 
 	/**
@@ -54,4 +54,7 @@ public class AdminService {
 		return dao.admindelete(admin);
 	}
 
+	public List<Admin> selectadminid(String id) {
+		return dao.selectAdminId(id);
+	}
 }
