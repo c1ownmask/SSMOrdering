@@ -66,7 +66,7 @@
 			<div class="content-foot">
 				<div class="content-sub">
 					<form action="selectadminidaction" method="post">
-						<label class="c-label">关键字：</label> 
+						<label class="c-label">编号：</label> 
 						<input type="text" class="c-text"  name="id" placeholder="请输入编号" /> 
 						<input type="submit" id="chaBut" class="c-but" value="查询" />
 					</form>
@@ -189,10 +189,6 @@
 					$("#xg-adminform").submit();
 				}
 			});
-		//查询关键字事件
-		$("#querybutton").click(function(){
-			
-		})
 	</script>
 
 </html>
