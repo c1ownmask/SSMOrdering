@@ -77,7 +77,8 @@
 							<td style="font-size: 10px;">${user.updatetime }</td>
 							<td><span> <a class="c-taba" href="#"
 									onclick="tanchuang('${user.id}')">修改</a> /<a class="c-taba"
-									href="deleteuseraction?id=${user.id}">删除</a>
+									href="JavaScript:deleteuser('${user.id}')">删除</a>
+									<%--deleteuseraction?id=${user.id} --%>
 							</span></td>
 						</tr>
 					</c:forEach>
@@ -212,6 +213,11 @@
 						$("#updatememberform").submit();
 					}
 				});
+		function deleteuser(id) {
+			if(confirm("确定要删除该条信息吗？")){
+				window.location.href="deleteuseraction?id="+id;
+			}
+		}
 	</script>
 </body>
 
