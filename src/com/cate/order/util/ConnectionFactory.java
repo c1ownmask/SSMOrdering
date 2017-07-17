@@ -13,7 +13,7 @@ public class ConnectionFactory {
 	public static Connection getConnection(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn=DriverManager.getConnection("jdbc:mysql://192.168.1.81:3306/ordermanager","root","root");
+			conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ordermanager","root","123456");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) { 
